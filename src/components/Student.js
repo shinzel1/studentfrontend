@@ -20,20 +20,30 @@ export default function Student() {
             }
         ).then(() => {
             loadOnlyOnce()
-            
+
         })
     }
-    const loadOnlyOnce = ()=>{
+    const loadOnlyOnce = () => {
         fetch("http://localhost:8080/student/getAll")
-        .then(res => res.json())
-        .then((result) => {
-            setStudents(result)
-        }, [])
+            .then(res => res.json())
+            .then((result) => {
+                setStudents(result)
+            }, [])
+    }
+    const deleteStudent = id => {
+        fetch(`http://localhost:8080/student/delete/${id}`,
+            {
+                method: "Delete",
+            }
+        ).then((result)=> console.log(result))
+            .then(() => {
+                loadOnlyOnce()
+            })
     }
 
     useEffect(() => {
         loadOnlyOnce()
-    },[setAddress,setName])
+    }, [setAddress, setName])
     return (
         <Container>
             <Paper elevation={3} style={paperStyle}>
@@ -60,10 +70,10 @@ export default function Student() {
             <Paper elevation={3} style={paperStyle}>
                 {students.map(student => (
                     <Paper elevation={6} style={{ margin: "10px", padding: "15px", textAlign: "left" }}>
-                        Id: {student.id}<br/>
-                        Name: {student.name}<br/>
+                        Id: {student.id}<br />
+                        Name: {student.name}<br />
                         Address: {student.address}
-
+                        <Button variant="contained" onClick={() => deleteStudent(student.id)}>Delete</Button>
                     </Paper>
                 ))}
 
