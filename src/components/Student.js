@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import { Button, Container, Paper } from '@mui/material';
+import { Button, Container, Grid, Paper } from '@mui/material';
 
 export default function Student() {
     const paperStyle = { padding: '50px 20px', width: 600, margin: "20px auto" }
@@ -70,10 +70,21 @@ export default function Student() {
             <Paper elevation={3} style={paperStyle}>
                 {students.map(student => (
                     <Paper elevation={6} style={{ margin: "10px", padding: "15px", textAlign: "left" }}>
-                        Id: {student.id}<br />
-                        Name: {student.name}<br />
-                        Address: {student.address}
-                        <Button variant="contained" onClick={() => deleteStudent(student.id)}>Delete</Button>
+                        <Grid container spacing={1}>
+                            <Grid item xs={2}>
+                            Id: {student.id} 
+                            </Grid>
+                            <Grid item xs={3}>
+                            Name: {student.name} 
+                            </Grid>
+                            <Grid item xs={3}>
+                            Address: {student.address} 
+                            </Grid>
+                            <Grid item xs={4}>
+                            <Button variant="contained" onClick={() => deleteStudent(student.id)}>Delete</Button>
+                            </Grid>
+                        </Grid>
+
                     </Paper>
                 ))}
 
